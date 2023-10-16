@@ -1,0 +1,38 @@
+// C++ code
+
+#include <LiquidCrystal.h>
+
+int sensor_input;
+float temp_C;
+float old_tempC;
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+void setup()
+{
+  lcd.begin(16, 2); //Configura las filas y columnas de la pantalla
+
+  //Mensaje de la pantalla LCD.
+  lcd.print("Temperatura: ");
+}
+
+void loop()
+{
+  lcd.setCursor(0, 1);
+  medir_temp();
+  mostrar_temp();
+}
+
+void medir_temp()
+{
+  sensor_input = analogRead(A0);
+  temp_C = (((float)sensor_input / 1024)*5-0.5)*100;
+}
+
+void mostrar_temp()
+{
+  lcd.setCursor(7,8);
+  lcd.print("o C");
+  lcd.setCursor(0,4);
+  lcd.print(temp_C);
+}
