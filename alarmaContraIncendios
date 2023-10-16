@@ -1,0 +1,38 @@
+// C++ code
+//Alarma contra incendios
+int gas = 0;
+int bocina = 4;
+int led = 2;
+
+
+void setup()
+{
+  pinMode(A5, INPUT);
+  pinMode(bocina, OUTPUT);
+  pinMode(2, OUTPUT);
+  
+  //MONITOR EN SERIE
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  gas = analogRead(A5);
+  Serial.println(gas);
+  
+  if (gas >=600) {
+    //Si es mayor a 600 debera sonar la bocina
+    tone(bocina, 463);
+    delay(1000);
+    tone(bocina, 234);
+    delay(500);
+    digitalWrite(2, HIGH); //Encender led
+    delay(2000);
+    digitalWrite(2, LOW); //Apagar led
+    delay(1000);
+  } else {
+  //Apagar la bocina
+    noTone(bocina);
+    
+  }
+}
